@@ -1,2 +1,2 @@
-# Project1_3DPlatformer-Demo
+# GamePrototype1
 3D Game demo collaboration.
