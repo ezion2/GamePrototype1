@@ -1,0 +1,12 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://bwjygmm1x8fh1"]
+
+[ext_resource type="Texture2D" uid="uid://c1b8lcbyqi6lg" path="res://Models/Props/movingplatform_Propeller_Plat.png" id="1_gy6du"]
+
+[resource]
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("1_gy6du")
+texture_filter = 0
+proximity_fade_distance = 4071.07
+distance_fade_mode = 2
+distance_fade_max_distance = 1.0

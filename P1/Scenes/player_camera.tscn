@@ -1,0 +1,199 @@
+[gd_scene load_steps=16 format=3 uid="uid://c7cdt7vstbt0n"]
+
+[ext_resource type="Script" path="res://Script/Player/PlayerStates/Utility/camera_controller.gd" id="1_d2dmn"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="2_cxwjk"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="3_ok2fb"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="4_h8je6"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="5_1op7m"]
+[ext_resource type="Script" path="res://Script/margin_container.gd" id="7_eieuw"]
+[ext_resource type="Script" path="res://Script/Player/PlayerStates/Utility/pause_menu.gd" id="7_tmxfu"]
+[ext_resource type="Shader" path="res://UI/Themes/blur_shader.gdshader" id="8_t60jw"]
+[ext_resource type="FontFile" uid="uid://2qwor1v42vdf" path="res://Fonts/Terminus.ttf" id="8_vtn38"]
+[ext_resource type="PackedScene" uid="uid://3lqfe0c6xrv1" path="res://Scenes/window_mode_button.tscn" id="9_pbnl2"]
+[ext_resource type="PackedScene" uid="uid://bvbxm85pcdva6" path="res://Scenes/resolution_mode_button.tscn" id="10_an2xw"]
+
+[sub_resource type="Resource" id="Resource_me358"]
+script = ExtResource("3_ok2fb")
+duration = 1.0
+transition = 0
+ease = 2
+
+[sub_resource type="Resource" id="Resource_27jep"]
+script = ExtResource("4_h8je6")
+cull_mask = 1048575
+h_offset = 0.0
+v_offset = 0.0
+projection = 0
+fov = 75.0
+size = 1.0
+frustum_offset = Vector2(0, 0)
+near = 0.05
+far = 4000.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_05a4b"]
+margin = 0.14
+radius = 0.1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ki4bw"]
+shader = ExtResource("8_t60jw")
+shader_parameter/lod = 1.3
+
+[node name="PlayerCamera" type="Node3D"]
+script = ExtResource("1_d2dmn")
+LOOK_AHEAD_LENGTH = 1.45
+NEUTRAL_RETURN_SPEED = 3.7
+RETURN_TO_NEUTRAL_DELAY = 2.3
+
+[node name="PlayerPhantomCamera3D" type="Node3D" parent="." node_paths=PackedStringArray("follow_target")]
+unique_name_in_owner = true
+transform = Transform3D(0.999998, 0, 0, 0, 0.999999, 0, 0, 0, 0.999997, 0, 0, 4.99999)
+script = ExtResource("2_cxwjk")
+follow_mode = 7
+follow_target = NodePath("..")
+tween_resource = SubResource("Resource_me358")
+tween_on_load = false
+camera_3d_resource = SubResource("Resource_27jep")
+follow_damping = true
+follow_damping_value = Vector3(0.08, 0.08, 0.08)
+follow_distance = 5.0
+dead_zone_width = 1.0
+dead_zone_height = 0.194
+spring_length = 5.0
+shape = SubResource("SphereShape3D_05a4b")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.99999)
+rotation_edit_mode = 1
+
+[node name="PhantomCameraHost" type="Node" parent="Camera3D"]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("5_1op7m")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PauseMenu" type="Control" parent="CanvasLayer"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("7_tmxfu")
+
+[node name="BlurBckground" type="ColorRect" parent="CanvasLayer/PauseMenu"]
+material = SubResource("ShaderMaterial_ki4bw")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/PauseMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+script = ExtResource("7_eieuw")
+left_margin_percent = 0.0
+top_margin_percent = 0.0
+right_margin_percent = 0.0
+bottom_margin_percent = 0.0
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/PauseMenu/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/PauseMenu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.465
+anchor_top = 0.032
+anchor_right = 0.996
+anchor_bottom = 0.202
+offset_left = 19.3199
+offset_top = 9.264
+offset_right = -2.39209
+offset_bottom = 9.10399
+theme_override_constants/separation = 64
+
+[node name="Window_Node_Button" parent="CanvasLayer/PauseMenu/VBoxContainer" instance=ExtResource("9_pbnl2")]
+layout_mode = 2
+
+[node name="Resolution_mode_button" parent="CanvasLayer/PauseMenu/VBoxContainer" instance=ExtResource("10_an2xw")]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="CanvasLayer/PauseMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PauseVBox" type="VBoxContainer" parent="CanvasLayer/PauseMenu/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -196.5
+offset_right = 250.0
+offset_bottom = 196.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Pause" type="Label" parent="CanvasLayer/PauseMenu/Panel/PauseVBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("8_vtn38")
+theme_override_font_sizes/font_size = 80
+text = "Paused"
+horizontal_alignment = 1
+
+[node name="ResumeButton" type="Button" parent="CanvasLayer/PauseMenu/Panel/PauseVBox"]
+custom_minimum_size = Vector2(500, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("8_vtn38")
+theme_override_font_sizes/font_size = 80
+text = "Resume
+"
+
+[node name="RestartButton" type="Button" parent="CanvasLayer/PauseMenu/Panel/PauseVBox"]
+custom_minimum_size = Vector2(500, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_fonts/font = ExtResource("8_vtn38")
+theme_override_font_sizes/font_size = 80
+text = "Restart"
+
+[node name="QuitButton" type="Button" parent="CanvasLayer/PauseMenu/Panel/PauseVBox"]
+custom_minimum_size = Vector2(500, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_fonts/font = ExtResource("8_vtn38")
+theme_override_font_sizes/font_size = 80
+text = "Quit
+"
+
+[connection signal="pressed" from="CanvasLayer/PauseMenu/Panel/PauseVBox/ResumeButton" to="CanvasLayer/PauseMenu" method="_on_resume_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/PauseMenu/Panel/PauseVBox/RestartButton" to="CanvasLayer/PauseMenu" method="_on_restart_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/PauseMenu/Panel/PauseVBox/QuitButton" to="CanvasLayer/PauseMenu" method="_on_quit_button_pressed"]

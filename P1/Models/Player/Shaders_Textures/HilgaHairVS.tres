@@ -1,0 +1,75 @@
+[gd_resource type="VisualShader" load_steps=12 format=3 uid="uid://ijvceno3yuwy"]
+
+[ext_resource type="Texture2D" uid="uid://bxw4sd1f7bnen" path="res://Models/Player/Shaders_Textures/Pattern_Black.png" id="1_g7hg5"]
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_ggdy1"]
+input_name = "screen_uv"
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_7tse2"]
+input_name = "screen_uv"
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_2ovtx"]
+texture = ExtResource("1_g7hg5")
+
+[sub_resource type="VisualShaderNodeUVFunc" id="VisualShaderNodeUVFunc_6awef"]
+default_input_values = [1, Vector2(10, 8), 2, Vector2(0, 0)]
+function = 1
+
+[sub_resource type="VisualShaderNodeColorConstant" id="VisualShaderNodeColorConstant_wm6ca"]
+constant = Color(0.870588, 0.807843, 0.705882, 1)
+
+[sub_resource type="VisualShaderNodeDistanceFade" id="VisualShaderNodeDistanceFade_reoh8"]
+default_input_values = [0, 0.0, 1, 1.0]
+
+[sub_resource type="VisualShaderNodeDistanceFade" id="VisualShaderNodeDistanceFade_nwhxb"]
+default_input_values = [0, 0.0, 1, 1.0]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_qng5o"]
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_50x2w"]
+texture = SubResource("CompressedTexture2D_qng5o")
+texture_type = 1
+
+[sub_resource type="VisualShaderNodeUVFunc" id="VisualShaderNodeUVFunc_75hwt"]
+default_input_values = [1, Vector2(75, 75), 2, Vector2(0, 0)]
+function = 1
+
+[resource]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_toon, specular_disabled;
+
+
+
+
+void fragment() {
+// ColorConstant:5
+	vec4 n_out5p0 = vec4(0.870588, 0.807843, 0.705882, 1.000000);
+
+
+// Output:0
+	ALBEDO = vec3(n_out5p0.xyz);
+
+
+}
+"
+modes/diffuse = 3
+modes/specular = 2
+nodes/fragment/2/node = SubResource("VisualShaderNodeInput_7tse2")
+nodes/fragment/2/position = Vector2(-460, 160)
+nodes/fragment/3/node = SubResource("VisualShaderNodeTexture_2ovtx")
+nodes/fragment/3/position = Vector2(120, 20)
+nodes/fragment/4/node = SubResource("VisualShaderNodeUVFunc_6awef")
+nodes/fragment/4/position = Vector2(-120, 140)
+nodes/fragment/5/node = SubResource("VisualShaderNodeColorConstant_wm6ca")
+nodes/fragment/5/position = Vector2(-60, 280)
+nodes/fragment/6/node = SubResource("VisualShaderNodeDistanceFade_reoh8")
+nodes/fragment/6/position = Vector2(-40, 380)
+nodes/fragment/7/node = SubResource("VisualShaderNodeDistanceFade_nwhxb")
+nodes/fragment/7/position = Vector2(180, 500)
+nodes/fragment/8/node = SubResource("VisualShaderNodeTexture_50x2w")
+nodes/fragment/8/position = Vector2(-300, 480)
+nodes/fragment/9/node = SubResource("VisualShaderNodeUVFunc_75hwt")
+nodes/fragment/9/position = Vector2(-720, 480)
+nodes/fragment/10/node = SubResource("VisualShaderNodeInput_ggdy1")
+nodes/fragment/10/position = Vector2(-1040, 500)
+nodes/fragment/connections = PackedInt32Array(2, 0, 4, 0, 4, 0, 3, 0, 5, 0, 0, 0, 8, 0, 7, 0, 9, 0, 8, 0, 10, 0, 9, 0)

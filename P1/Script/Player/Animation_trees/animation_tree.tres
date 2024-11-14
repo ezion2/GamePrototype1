@@ -1,0 +1,91 @@
+[gd_resource type="AnimationNodeBlendTree" load_steps=19 format=3 uid="uid://blhkd1tevk0h6"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_00001"]
+animation = &"Hilga_Dash2"
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_iuol8"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_g2gtq"]
+animation = &"Hilga_Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7n6yh"]
+animation = &"Hilga_Dance"
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_miej0"]
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_qt70u"]
+fadeout_time = 0.5
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_x022a"]
+mix_mode = 1
+fadeout_time = 0.35
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xohig"]
+animation = &"Nothing"
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_h7oj8"]
+fadein_time = 0.1
+fadeout_time = 0.5
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_60h2l"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_2sv48"]
+animation = &"RefFace"
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_aej6t"]
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_baqc8"]
+
+[sub_resource type="AnimationNodeBlend3" id="AnimationNodeBlend3_kqi72"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_nfph6"]
+animation = &"Landing"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8pdrl"]
+animation = &"RefFace"
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_hx3or"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5qj2k"]
+animation = &"HilgaRun"
+
+[resource]
+graph_offset = Vector2(239.432, -263.15)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_00001")
+nodes/Animation/position = Vector2(2000, 320)
+nodes/Dash_OneShot/node = SubResource("AnimationNodeOneShot_iuol8")
+nodes/Dash_OneShot/position = Vector2(2220, 0)
+nodes/Idle_anim/node = SubResource("AnimationNodeAnimation_g2gtq")
+nodes/Idle_anim/position = Vector2(660, -220)
+nodes/Jump/node = SubResource("AnimationNodeAnimation_7n6yh")
+nodes/Jump/position = Vector2(1120, 420)
+nodes/Jump_Animation_Speed/node = SubResource("AnimationNodeTimeScale_miej0")
+nodes/Jump_Animation_Speed/position = Vector2(1400, 280)
+nodes/Jump_Oneshot/node = SubResource("AnimationNodeOneShot_qt70u")
+nodes/Jump_Oneshot/position = Vector2(1700, -20)
+nodes/Land_OneShot/node = SubResource("AnimationNodeOneShot_x022a")
+nodes/Land_OneShot/position = Vector2(1980, 0)
+nodes/Sprint_stop/node = SubResource("AnimationNodeAnimation_xohig")
+nodes/Sprint_stop/position = Vector2(640, 240)
+nodes/Stop_Oneshot/node = SubResource("AnimationNodeOneShot_h7oj8")
+nodes/Stop_Oneshot/position = Vector2(1100, -100)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_60h2l")
+nodes/TimeScale/position = Vector2(900, 140)
+nodes/fall/node = SubResource("AnimationNodeAnimation_2sv48")
+nodes/fall/position = Vector2(760, 440)
+nodes/fall_blend/node = SubResource("AnimationNodeBlend2_aej6t")
+nodes/fall_blend/position = Vector2(1300, 0)
+nodes/fall_scale/node = SubResource("AnimationNodeTimeScale_baqc8")
+nodes/fall_scale/position = Vector2(1000, 280)
+nodes/idle_walk_blend/node = SubResource("AnimationNodeBlend3_kqi72")
+nodes/idle_walk_blend/position = Vector2(900, -200)
+nodes/land/node = SubResource("AnimationNodeAnimation_nfph6")
+nodes/land/position = Vector2(1680, 300)
+nodes/nothing/node = SubResource("AnimationNodeAnimation_8pdrl")
+nodes/nothing/position = Vector2(660, 80)
+nodes/output/position = Vector2(2380, 0)
+nodes/sprint_scale/node = SubResource("AnimationNodeTimeScale_hx3or")
+nodes/sprint_scale/position = Vector2(660, -80)
+nodes/walk_anim/node = SubResource("AnimationNodeAnimation_5qj2k")
+nodes/walk_anim/position = Vector2(380, -60)
+node_connections = [&"Dash_OneShot", 0, &"Land_OneShot", &"Dash_OneShot", 1, &"Animation", &"Jump_Animation_Speed", 0, &"Jump", &"Jump_Oneshot", 0, &"fall_blend", &"Jump_Oneshot", 1, &"Jump_Animation_Speed", &"Land_OneShot", 0, &"Jump_Oneshot", &"Land_OneShot", 1, &"land", &"Stop_Oneshot", 0, &"idle_walk_blend", &"Stop_Oneshot", 1, &"TimeScale", &"TimeScale", 0, &"Sprint_stop", &"fall_blend", 0, &"Stop_Oneshot", &"fall_blend", 1, &"fall_scale", &"fall_scale", 0, &"fall", &"idle_walk_blend", 0, &"Idle_anim", &"idle_walk_blend", 1, &"sprint_scale", &"idle_walk_blend", 2, &"nothing", &"output", 0, &"Dash_OneShot", &"sprint_scale", 0, &"walk_anim"]
