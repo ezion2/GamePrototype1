@@ -1,0 +1,47 @@
+[gd_scene load_steps=2 format=3 uid="uid://dpgm68ba0w5a"]
+
+[ext_resource type="FontFile" uid="uid://2qwor1v42vdf" path="res://Fonts/Terminus.ttf" id="1_830mb"]
+
+[node name="Options_Display_Button" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 695.0
+offset_bottom = 88.0
+
+[node name="Resolution" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -292.0
+offset_top = -25.5
+offset_right = 292.0
+offset_bottom = 25.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+
+[node name="Resolution" type="Label" parent="Resolution"]
+custom_minimum_size = Vector2(264, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("1_830mb")
+theme_override_font_sizes/font_size = 50
+text = "BASE_LABEL"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VSeparator" type="VSeparator" parent="Resolution"]
+layout_mode = 2
+
+[node name="OptionButton" type="OptionButton" parent="Resolution"]
+custom_minimum_size = Vector2(256, 35)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("1_830mb")
+theme_override_font_sizes/font_size = 20

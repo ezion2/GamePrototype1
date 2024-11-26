@@ -1,0 +1,238 @@
+[gd_resource type="AnimationNodeBlendTree" load_steps=48 format=3 uid="uid://bk6imjrhf6eje"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vd28k"]
+animation = &"Hilga_DashLand"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_np1tx"]
+animation = &"Hilga_SlideLoop"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ef6tv"]
+animation = &"Hilga_SlideIdle"
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_0q2yo"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_mgrft"]
+animation = &"Hilga_Runstop2"
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_uce8e"]
+graph_offset = Vector2(-350.104, 118.628)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_0q2yo")
+nodes/TimeScale/position = Vector2(520, 140)
+nodes/breakstop/node = SubResource("AnimationNodeAnimation_mgrft")
+nodes/breakstop/position = Vector2(220, 220)
+nodes/output/position = Vector2(820, 160)
+node_connections = [&"TimeScale", 0, &"breakstop", &"output", 0, &"TimeScale"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_sur5a"]
+animation = &"Hilga_Dash2"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_c30mk"]
+animation = &"Hilga_Jumping3_2"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fchfc"]
+animation = &"Hilga_Fall"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_q8ann"]
+animation = &"Hilga_Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ds44p"]
+animation = &"HilgaRun"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_mp8qg"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_q8ann")
+blend_point_0/pos = 0.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_ds44p")
+blend_point_1/pos = 1.0
+min_space = 0.0
+snap = 1.0
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_k07wg"]
+animation = &"Hilga_Jumping3"
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_louab"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_akvg4"]
+animation = &"Hilga_Landing"
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_k2lix"]
+graph_offset = Vector2(38, 113)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_louab")
+nodes/TimeScale/position = Vector2(820, 200)
+nodes/landing/node = SubResource("AnimationNodeAnimation_akvg4")
+nodes/landing/position = Vector2(594, 267)
+nodes/output/position = Vector2(1060, 200)
+node_connections = [&"TimeScale", 0, &"landing", &"output", 0, &"TimeScale"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_2iicu"]
+animation = &"Hilga_Wallslide"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_gliy3"]
+advance_mode = 2
+
+[sub_resource type="Curve" id="Curve_2rfq3"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.750511, 0.60396), 1.89453, 1.89453, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_vylqx"]
+xfade_time = 0.3
+xfade_curve = SubResource("Curve_2rfq3")
+advance_mode = 2
+advance_expression = "PLAYER.velocity.y < 0.0 and state == StringName(\"AirbornePlayerState\")"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wmh4k"]
+xfade_time = 0.2
+advance_mode = 2
+advance_expression = "floor_status == false"
+
+[sub_resource type="Curve" id="Curve_6emms"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_s2hhh"]
+xfade_time = 0.3
+xfade_curve = SubResource("Curve_6emms")
+advance_mode = 2
+advance_expression = "state == \"DashSlidePlayerState\" && int(PLAYER.velocity.length()) == 0"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_o8vwd"]
+
+[sub_resource type="Curve" id="Curve_mbpmm"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0cah1"]
+xfade_time = 0.1
+xfade_curve = SubResource("Curve_mbpmm")
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="Curve" id="Curve_jiyrh"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_itu8v"]
+xfade_time = 0.3
+xfade_curve = SubResource("Curve_jiyrh")
+advance_mode = 2
+advance_expression = "PLAYER.is_movement_ongoing() == true"
+
+[sub_resource type="Curve" id="Curve_gtm8h"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wx7gu"]
+xfade_time = 0.3
+xfade_curve = SubResource("Curve_gtm8h")
+
+[sub_resource type="Curve" id="Curve_k0g8x"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xi4w7"]
+xfade_time = 0.25
+xfade_curve = SubResource("Curve_k0g8x")
+advance_mode = 2
+advance_expression = "floor_status == true"
+
+[sub_resource type="Curve" id="Curve_m2bwk"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.746421, 0.623762), 1.88284, 1.88284, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_b1wb0"]
+xfade_time = 0.23
+xfade_curve = SubResource("Curve_m2bwk")
+switch_mode = 1
+advance_mode = 2
+advance_expression = "PLAYER.is_movement_ongoing() == true"
+
+[sub_resource type="Curve" id="Curve_xo6re"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_406nm"]
+xfade_time = 0.3
+xfade_curve = SubResource("Curve_xo6re")
+advance_mode = 2
+advance_expression = "state == \"DashSlidePlayerState\" && int(PLAYER.velocity.length()) != 0"
+
+[sub_resource type="Curve" id="Curve_3ar8b"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.754601, 0.59901), 1.89453, 1.89453, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_bgfs8"]
+xfade_time = 0.3
+xfade_curve = SubResource("Curve_3ar8b")
+advance_mode = 2
+advance_expression = "PLAYER.velocity.y < 0.0 and state == StringName(\"AirbornePlayerState\")"
+
+[sub_resource type="Curve" id="Curve_w55tb"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.745509, 0.693396), 1.41249, 1.41249, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ecs8l"]
+xfade_time = 0.25
+xfade_curve = SubResource("Curve_w55tb")
+advance_mode = 2
+advance_expression = "state == \"IdlePlayerState\" and floor_status == true"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ehwld"]
+xfade_time = 0.3
+advance_mode = 2
+advance_expression = "PLAYER.velocity.y < 0.0 and state == StringName(\"AirbornePlayerState\")"
+
+[sub_resource type="Curve" id="Curve_dfhe3"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.746063, 0.724818), 2.31381, 2.31381, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_iyb1f"]
+xfade_time = 0.2
+xfade_curve = SubResource("Curve_dfhe3")
+advance_mode = 2
+advance_expression = "floor_status == false"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tpc5h"]
+advance_mode = 2
+advance_expression = "PLAYER.velocity.y <= 0.0 and (state != StringName(\"AirbornePlayerState\") and state != StringName(\"WallJumpPlayerState\"))"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_elfn1"]
+advance_mode = 2
+advance_expression = "PLAYER.velocity.y <= 0.0 and (state != StringName(\"AirbornePlayerState\") and state != StringName(\"WallJumpPlayerState\"))"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_py3b3"]
+states/End/position = Vector2(1139, 237)
+states/Start/position = Vector2(-91, 339)
+states/belly_land/node = SubResource("AnimationNodeAnimation_vd28k")
+states/belly_land/position = Vector2(115.165, 121)
+states/belly_slide/node = SubResource("AnimationNodeAnimation_np1tx")
+states/belly_slide/position = Vector2(353, 121)
+states/belly_slide_idle/node = SubResource("AnimationNodeAnimation_ef6tv")
+states/belly_slide_idle/position = Vector2(709.165, 121)
+states/brake/node = SubResource("AnimationNodeBlendTree_uce8e")
+states/brake/position = Vector2(-91, 632)
+states/dash/node = SubResource("AnimationNodeAnimation_sur5a")
+states/dash/position = Vector2(-91, 121)
+states/double_jump/node = SubResource("AnimationNodeAnimation_c30mk")
+states/double_jump/position = Vector2(709.165, 334)
+states/fall/node = SubResource("AnimationNodeAnimation_fchfc")
+states/fall/position = Vector2(605.165, 482)
+states/idle_walk/node = SubResource("AnimationNodeBlendSpace1D_mp8qg")
+states/idle_walk/position = Vector2(151, 339)
+states/jump/node = SubResource("AnimationNodeAnimation_k07wg")
+states/jump/position = Vector2(500, 334)
+states/land/node = SubResource("AnimationNodeBlendTree_k2lix")
+states/land/position = Vector2(605.165, 632)
+states/wall_slide/node = SubResource("AnimationNodeAnimation_2iicu")
+states/wall_slide/position = Vector2(884.858, 415.499)
+transitions = ["Start", "idle_walk", SubResource("AnimationNodeStateMachineTransition_gliy3"), "double_jump", "fall", SubResource("AnimationNodeStateMachineTransition_vylqx"), "idle_walk", "fall", SubResource("AnimationNodeStateMachineTransition_wmh4k"), "belly_slide", "belly_slide_idle", SubResource("AnimationNodeStateMachineTransition_s2hhh"), "dash", "belly_land", SubResource("AnimationNodeStateMachineTransition_o8vwd"), "belly_land", "belly_slide", SubResource("AnimationNodeStateMachineTransition_0cah1"), "brake", "idle_walk", SubResource("AnimationNodeStateMachineTransition_itu8v"), "idle_walk", "brake", SubResource("AnimationNodeStateMachineTransition_wx7gu"), "fall", "land", SubResource("AnimationNodeStateMachineTransition_xi4w7"), "land", "idle_walk", SubResource("AnimationNodeStateMachineTransition_b1wb0"), "belly_slide_idle", "belly_slide", SubResource("AnimationNodeStateMachineTransition_406nm"), "jump", "fall", SubResource("AnimationNodeStateMachineTransition_bgfs8"), "wall_slide", "land", SubResource("AnimationNodeStateMachineTransition_ecs8l"), "wall_slide", "fall", SubResource("AnimationNodeStateMachineTransition_ehwld"), "brake", "fall", SubResource("AnimationNodeStateMachineTransition_iyb1f"), "jump", "land", SubResource("AnimationNodeStateMachineTransition_tpc5h"), "double_jump", "land", SubResource("AnimationNodeStateMachineTransition_elfn1")]
+graph_offset = Vector2(-228.142, 323.499)
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_lu4mv"]
+
+[resource]
+graph_offset = Vector2(-96, 98)
+nodes/StateMachine/node = SubResource("AnimationNodeStateMachine_py3b3")
+nodes/StateMachine/position = Vector2(120, 180)
+nodes/animation_speed/node = SubResource("AnimationNodeTimeScale_lu4mv")
+nodes/animation_speed/position = Vector2(460, 120)
+nodes/output/position = Vector2(860, 120)
+node_connections = [&"animation_speed", 0, &"StateMachine", &"output", 0, &"animation_speed"]
